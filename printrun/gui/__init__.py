@@ -1,3 +1,4 @@
+#encoding: utf-8
 # This file is part of the Printrun suite.
 #
 # Printrun is free software: you can redistribute it and/or modify
@@ -177,8 +178,8 @@ class MainWindow(wx.Frame):
         page1panel.SetSizer(self.mainsizer_page1)
         page2panel.SetSizer(self.mainsizer)
         self.notesizer.Add(self.notebook, 1, wx.EXPAND)
-        self.notebook.AddPage(page1panel, _("Commands"))
-        self.notebook.AddPage(page2panel, _("Status"))
+        self.notebook.AddPage(page1panel, _(u"控制"))#Commands
+        self.notebook.AddPage(page2panel, _(u"进度"))#Status
         if self.settings.uimode == _("Tabbed with platers"):
             from printrun.stlplater import StlPlaterPanel
             from printrun.gcodeplater import GcodePlaterPanel

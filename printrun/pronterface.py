@@ -1,3 +1,4 @@
+#encoding: utf-8
 #!/usr/bin/env python
 
 # This file is part of the Printrun suite.
@@ -1078,7 +1079,7 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
             self.status_thread.join()
             self.status_thread = None
 
-        wx.CallAfter(self.connectbtn.SetLabel, _("Connect"))
+        wx.CallAfter(self.connectbtn.SetLabel, _(u"连接Connect"))
         wx.CallAfter(self.connectbtn.SetToolTip, wx.ToolTip(_("Connect to the printer")))
         wx.CallAfter(self.connectbtn.Bind, wx.EVT_BUTTON, self.connect)
 
@@ -1087,8 +1088,8 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
         if self.paused:
             self.p.paused = 0
             self.p.printing = 0
-            wx.CallAfter(self.pausebtn.SetLabel, _("Pause"))
-            wx.CallAfter(self.printbtn.SetLabel, _("Print"))
+            wx.CallAfter(self.pausebtn.SetLabel, _(u"Pause"))
+            wx.CallAfter(self.printbtn.SetLabel, _(u"Print"))
             self.paused = 0
             if self.sdprinting:
                 self.p.send_now("M26 S0")
@@ -2189,3 +2190,4 @@ class PronterApp(wx.App):
         self.SetAppName("Pronterface")
         self.mainwindow = PronterWindow(self)
         self.mainwindow.Show()
+        # self.mainwindow.ShowFullScreen(True,style=wx.FULLSCREEN_ALL)
