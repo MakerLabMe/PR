@@ -163,9 +163,9 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.uploading = False
         self.sentglines = Queue.Queue(0)
         self.cpbuttons = {
-            "motorsoff": SpecialButton(_("Motors off"), ("M84"), (250, 250, 250), _("Switch all motors off")),
-            "extrude": SpecialButton(_("Extrude"), ("pront_extrude"), (225, 200, 200), _("Advance extruder by set length")),
-            "reverse": SpecialButton(_("Reverse"), ("pront_reverse"), (225, 200, 200), _("Reverse extruder by set length")),
+            "motorsoff": SpecialButton(_(u"关闭电机"), ("M84"), (250, 250, 250), _(u"关闭所有电机")),
+            "extrude": SpecialButton(_(u"挤出"), ("pront_extrude"), (225, 200, 200), _(u"挤出相应长度")),
+            "reverse": SpecialButton(_(u"回抽"), ("pront_reverse"), (225, 200, 200), _(u"回抽相应长度")),
         }
         self.custombuttons = []
         self.btndict = {}
@@ -1049,8 +1049,8 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
         if self.paused:
             self.p.paused = 0
             self.p.printing = 0
-            wx.CallAfter(self.pausebtn.SetLabel, _("Pause"))
-            wx.CallAfter(self.printbtn.SetLabel, _("Print"))
+            wx.CallAfter(self.pausebtn.SetLabel, _(u"暂停"))
+            wx.CallAfter(self.printbtn.SetLabel, _(u"打印"))
             wx.CallAfter(self.toolbarsizer.Layout)
             self.paused = 0
             if self.sdprinting:
@@ -1079,8 +1079,8 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
             self.status_thread.join()
             self.status_thread = None
 
-        wx.CallAfter(self.connectbtn.SetLabel, _(u"连接Connect"))
-        wx.CallAfter(self.connectbtn.SetToolTip, wx.ToolTip(_("Connect to the printer")))
+        wx.CallAfter(self.connectbtn.SetLabel, _(u"连接"))
+        wx.CallAfter(self.connectbtn.SetToolTip, wx.ToolTip(_(u"连接到打印机")))
         wx.CallAfter(self.connectbtn.Bind, wx.EVT_BUTTON, self.connect)
 
         wx.CallAfter(self.gui_set_disconnected)
@@ -1088,8 +1088,8 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
         if self.paused:
             self.p.paused = 0
             self.p.printing = 0
-            wx.CallAfter(self.pausebtn.SetLabel, _(u"Pause"))
-            wx.CallAfter(self.printbtn.SetLabel, _(u"Print"))
+            wx.CallAfter(self.pausebtn.SetLabel, _(u"暂停"))
+            wx.CallAfter(self.printbtn.SetLabel, _(u"暂停"))
             self.paused = 0
             if self.sdprinting:
                 self.p.send_now("M26 S0")
@@ -1105,10 +1105,10 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
             self.sethotendgui(0)
             self.setbedgui(0)
             self.p.printing = 0
-            wx.CallAfter(self.printbtn.SetLabel, _("Print"))
+            wx.CallAfter(self.printbtn.SetLabel, _(u"打印"))
             if self.paused:
                 self.p.paused = 0
-                wx.CallAfter(self.pausebtn.SetLabel, _("Pause"))
+                wx.CallAfter(self.pausebtn.SetLabel, _(u"暂停"))
                 self.paused = 0
             wx.CallAfter(self.toolbarsizer.Layout)
         dlg.Destroy()
@@ -1118,9 +1118,9 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
     #  --------------------------------------------------------------
 
     def on_startprint(self):
-        wx.CallAfter(self.pausebtn.SetLabel, _("Pause"))
+        wx.CallAfter(self.pausebtn.SetLabel, _(u"暂停"))
         wx.CallAfter(self.pausebtn.Enable)
-        wx.CallAfter(self.printbtn.SetLabel, _("Restart"))
+        wx.CallAfter(self.printbtn.SetLabel, _(u"重新开始"))
         wx.CallAfter(self.toolbarsizer.Layout)
 
     def printfile(self, event):
@@ -1190,7 +1190,7 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
             self.paused = True
             # self.p.runSmallScript(self.pauseScript)
             self.extra_print_time += int(time.time() - self.starttime)
-            wx.CallAfter(self.pausebtn.SetLabel, _("Resume"))
+            wx.CallAfter(self.pausebtn.SetLabel, _(u"恢复打印"))
             wx.CallAfter(self.toolbarsizer.Layout)
         else:
             self.log(_("Resuming."))
@@ -1199,7 +1199,7 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
                 self.p.send_now("M24")
             else:
                 self.p.resume()
-            wx.CallAfter(self.pausebtn.SetLabel, _("Pause"))
+            wx.CallAfter(self.pausebtn.SetLabel, _(u"暂停"))
             wx.CallAfter(self.toolbarsizer.Layout)
 
     def recover(self, event):
@@ -1283,7 +1283,7 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
         self.slicep = None
 
     def slice(self, filename):
-        wx.CallAfter(self.loadbtn.SetLabel, _("Cancel"))
+        wx.CallAfter(self.loadbtn.SetLabel, _(u"取消"))
         wx.CallAfter(self.toolbarsizer.Layout)
         self.log(_("Slicing ") + filename)
         self.cout = StringIO.StringIO()
@@ -1527,8 +1527,8 @@ Printrun. If not, see <http://www.gnu.org/licenses/>."""
 
     def online_gui(self):
         """Callback when printer goes online (graphical bits)"""
-        self.connectbtn.SetLabel(_("Disconnect"))
-        self.connectbtn.SetToolTip(wx.ToolTip("Disconnect from the printer"))
+        self.connectbtn.SetLabel(_(u"断开连接"))
+        self.connectbtn.SetToolTip(wx.ToolTip(u"断开打印机"))
         self.connectbtn.Bind(wx.EVT_BUTTON, self.disconnect)
 
         if hasattr(self, "extrudersel"):

@@ -1,3 +1,4 @@
+#encoding: utf-8
 # This file is part of the Printrun suite.
 #
 # Printrun is free software: you can redistribute it and/or modify
@@ -126,10 +127,10 @@ def add_extra_controls(self, root, parentpanel, extra_buttons = None, mini_mode 
     # Hotend & bed temperatures #
 
     # Hotend temp
-    add("htemp_label", wx.StaticText(parentpanel, -1, _("Heat:")), flag = wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_RIGHT)
+    add("htemp_label", wx.StaticText(parentpanel, -1, _(u"加热头:")), flag = wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_RIGHT)
     htemp_choices = [root.temps[i] + " (" + i + ")" for i in sorted(root.temps.keys(), key = lambda x:root.temps[x])]
 
-    root.settoff = make_button(parentpanel, _("Off"), lambda e: root.do_settemp("off"), _("Switch Hotend Off"), size = (38, -1), style = wx.BU_EXACTFIT)
+    root.settoff = make_button(parentpanel, _(u"关闭"), lambda e: root.do_settemp("off"), _("Switch Hotend Off"), size = (38, -1), style = wx.BU_EXACTFIT)
     root.printerControls.append(root.settoff)
     add("htemp_off", root.settoff)
 
@@ -137,19 +138,19 @@ def add_extra_controls(self, root, parentpanel, extra_buttons = None, mini_mode 
         htemp_choices = [str(root.settings.last_temperature)] + htemp_choices
     root.htemp = wx.ComboBox(parentpanel, -1, choices = htemp_choices,
                              style = wx.CB_DROPDOWN, size = (80, -1))
-    root.htemp.SetToolTip(wx.ToolTip(_("Select Temperature for Hotend")))
+    root.htemp.SetToolTip(wx.ToolTip(_(u"为加热头设定温度")))
     root.htemp.Bind(wx.EVT_COMBOBOX, root.htemp_change)
 
     add("htemp_val", root.htemp)
-    root.settbtn = make_button(parentpanel, _("Set"), root.do_settemp, _("Switch Hotend On"), size = (38, -1), style = wx.BU_EXACTFIT)
+    root.settbtn = make_button(parentpanel, _(u"设定"), root.do_settemp, _("Switch Hotend On"), size = (38, -1), style = wx.BU_EXACTFIT)
     root.printerControls.append(root.settbtn)
     add("htemp_set", root.settbtn, flag = wx.EXPAND)
 
     # Bed temp
-    add("btemp_label", wx.StaticText(parentpanel, -1, _("Bed:")), flag = wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_RIGHT)
+    add("btemp_label", wx.StaticText(parentpanel, -1, _(u"加热床:")), flag = wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_RIGHT)
     btemp_choices = [root.bedtemps[i] + " (" + i + ")" for i in sorted(root.bedtemps.keys(), key = lambda x:root.temps[x])]
 
-    root.setboff = make_button(parentpanel, _("Off"), lambda e: root.do_bedtemp("off"), _("Switch Heated Bed Off"), size = (38, -1), style = wx.BU_EXACTFIT)
+    root.setboff = make_button(parentpanel, _(u"关闭"), lambda e: root.do_bedtemp("off"), _("Switch Heated Bed Off"), size = (38, -1), style = wx.BU_EXACTFIT)
     root.printerControls.append(root.setboff)
     add("btemp_off", root.setboff)
 
@@ -157,11 +158,11 @@ def add_extra_controls(self, root, parentpanel, extra_buttons = None, mini_mode 
         btemp_choices = [str(root.settings.last_bed_temperature)] + btemp_choices
     root.btemp = wx.ComboBox(parentpanel, -1, choices = btemp_choices,
                              style = wx.CB_DROPDOWN, size = (80, -1))
-    root.btemp.SetToolTip(wx.ToolTip(_("Select Temperature for Heated Bed")))
+    root.btemp.SetToolTip(wx.ToolTip(_(u"为加热床设定温度")))
     root.btemp.Bind(wx.EVT_COMBOBOX, root.btemp_change)
     add("btemp_val", root.btemp)
 
-    root.setbbtn = make_button(parentpanel, _("Set"), root.do_bedtemp, _("Switch Heated Bed On"), size = (38, -1), style = wx.BU_EXACTFIT)
+    root.setbbtn = make_button(parentpanel, _(u"设定"), root.do_bedtemp, _("Switch Heated Bed On"), size = (38, -1), style = wx.BU_EXACTFIT)
     root.printerControls.append(root.setbbtn)
     add("btemp_set", root.setbbtn, flag = wx.EXPAND)
 
@@ -187,7 +188,7 @@ def add_extra_controls(self, root, parentpanel, extra_buttons = None, mini_mode 
     # Speed control #
     speedpanel = root.newPanel(parentpanel)
     speedsizer = wx.BoxSizer(wx.HORIZONTAL)
-    speedsizer.Add(wx.StaticText(speedpanel, -1, _("Print speed:")), flag = wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_RIGHT)
+    speedsizer.Add(wx.StaticText(speedpanel, -1, _(u"打印速度:")), flag = wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_RIGHT)
 
     root.speed_slider = wx.Slider(speedpanel, -1, 100, 1, 300)
     speedsizer.Add(root.speed_slider, 1, flag = wx.EXPAND)
@@ -200,7 +201,7 @@ def add_extra_controls(self, root, parentpanel, extra_buttons = None, mini_mode 
     def speedslider_set(event):
         root.do_setspeed()
         root.speed_setbtn.SetBackgroundColour(wx.NullColour)
-    root.speed_setbtn = make_button(speedpanel, _("Set"), speedslider_set, _("Set print speed factor"), size = (38, -1), style = wx.BU_EXACTFIT)
+    root.speed_setbtn = make_button(speedpanel, _(u"设定"), speedslider_set, _("Set print speed factor"), size = (38, -1), style = wx.BU_EXACTFIT)
     root.printerControls.append(root.speed_setbtn)
     speedsizer.Add(root.speed_setbtn, flag = wx.ALIGN_CENTER)
     speedpanel.SetSizer(speedsizer)
@@ -274,20 +275,20 @@ def add_extra_controls(self, root, parentpanel, extra_buttons = None, mini_mode 
     root.edist.SetForegroundColour("black")
     root.edist.Bind(wx.EVT_SPINCTRL, root.setfeeds)
     root.edist.Bind(wx.EVT_TEXT, root.setfeeds)
-    add("edist_label", wx.StaticText(esettingspanel, -1, _("Length:")), container = esettingssizer, flag = wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_LEFT | wx.RIGHT | wx.LEFT, border = 5)
+    add("edist_label", wx.StaticText(esettingspanel, -1, _(u"长度:")), container = esettingssizer, flag = wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_LEFT | wx.RIGHT | wx.LEFT, border = 5)
     add("edist_val", root.edist, container = esettingssizer, flag = wx.ALIGN_CENTER | wx.RIGHT, border = 5)
     unit_label = _("mm") if mini_mode else _("mm @")
     add("edist_unit", wx.StaticText(esettingspanel, -1, unit_label), container = esettingssizer, flag = wx.ALIGN_CENTER | wx.RIGHT, border = 5)
-    root.edist.SetToolTip(wx.ToolTip(_("Amount to Extrude or Retract (mm)")))
+    root.edist.SetToolTip(wx.ToolTip(_(u"挤出或回抽长度")))
     if not mini_mode:
         root.efeedc = FloatSpin(esettingspanel, -1, value = root.settings.e_feedrate, min_val = 0, max_val = 50000, size = (90, -1), digits = 1)
-        root.efeedc.SetToolTip(wx.ToolTip(_("Extrude / Retract speed (mm/min)")))
+        root.efeedc.SetToolTip(wx.ToolTip(_(u"挤出或回抽速度(mm/min)")))
         root.efeedc.SetBackgroundColour((225, 200, 200))
         root.efeedc.SetForegroundColour("black")
         root.efeedc.Bind(wx.EVT_SPINCTRL, root.setfeeds)
         root.efeedc.Bind(wx.EVT_TEXT, root.setfeeds)
         add("efeed_val", root.efeedc, container = esettingssizer, flag = wx.ALIGN_CENTER | wx.RIGHT, border = 5)
-        add("efeed_label", wx.StaticText(esettingspanel, -1, _("Speed:")), container = esettingssizer, flag = wx.ALIGN_LEFT)
+        add("efeed_label", wx.StaticText(esettingspanel, -1, _(u"速度:")), container = esettingssizer, flag = wx.ALIGN_LEFT)
         add("efeed_unit", wx.StaticText(esettingspanel, -1, _("mm/\nmin")), container = esettingssizer, flag = wx.ALIGN_CENTER)
     else:
         root.efeedc = None
